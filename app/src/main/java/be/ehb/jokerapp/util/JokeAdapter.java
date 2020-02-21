@@ -2,10 +2,13 @@ package be.ehb.jokerapp.util;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +23,7 @@ import be.ehb.jokerapp.model.Joke;
 /**
  * Created by Banaan on 20/01/2038. ;)
  */
-public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder> {
+public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder> implements Filterable {
 
     class JokeViewHolder extends RecyclerView.ViewHolder{
 
@@ -48,10 +51,12 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
         }
     }
 
-    ArrayList<Joke> items;
+    private ArrayList<Joke> items;
+    private final ArrayList<Joke> OGItems;
 
     public JokeAdapter() {
         items = new ArrayList<>();
+        OGItems = new ArrayList<>();
     }
 
     @NonNull
@@ -79,5 +84,35 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
     public void addItems( ArrayList<Joke> jokes){
         items.clear();
         items.addAll(jokes);
+        OGItems.clear();
+        OGItems.addAll(jokes);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String input = charSequence.toString();
+                if(input.isEmpty()){
+                    items = OGItems;
+                }else{
+                    ArrayList<Joke> tempList = new ArrayList<>();
+
+                    for( Joke element : items ) {
+                        if (element.getSetup().contains(input)) {
+                            tempList.add(element);
+                        }
+                    }
+                    items = tempList;
+                }
+                return null;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                notifyDataSetChanged();
+            }
+        };
     }
 }
