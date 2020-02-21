@@ -62,9 +62,9 @@ public class JokeListFragment extends Fragment {
         //opvulling reycler, kan als lijst of grid
         RecyclerView.LayoutManager manager;
 
-        //manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
+        manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         //manager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
-        manager = new GridLayoutManager(getContext(), 2);
+        //manager = new GridLayoutManager(getContext(), 2);
 
         rvJokes.setLayoutManager(manager);
         //adapter, nodig om data om te zetten in iets visueel
@@ -77,6 +77,7 @@ public class JokeListFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<Joke> jokes) {
                 adapter.addItems(jokes);
+                adapter.notifyDataSetChanged();
             }
         });
 

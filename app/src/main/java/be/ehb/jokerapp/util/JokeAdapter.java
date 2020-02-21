@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import be.ehb.jokerapp.R;
 import be.ehb.jokerapp.model.Joke;
@@ -25,7 +26,7 @@ import be.ehb.jokerapp.model.Joke;
  */
 public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder> implements Filterable {
 
-    class JokeViewHolder extends RecyclerView.ViewHolder{
+    class JokeViewHolder extends RecyclerView.ViewHolder {
 
         final TextView tvSetup;
         final Button btnClou;
@@ -39,7 +40,7 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
                 Bundle data = new Bundle();
                 data.putSerializable("passedJoke", items.get(position));
                 //navigatie starten
-                Navigation.findNavController(view).navigate(R.id.jokelist_to_details,data);
+                Navigation.findNavController(view).navigate(R.id.jokelist_to_details, data);
             }
         };
 
@@ -81,7 +82,7 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
         return items.size();
     }
 
-    public void addItems( ArrayList<Joke> jokes){
+    public void addItems(ArrayList<Joke> jokes) {
         items.clear();
         items.addAll(jokes);
         OGItems.clear();
@@ -94,12 +95,11 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String input = charSequence.toString();
-                if(input.isEmpty()){
-                    items = OGItems;
-                }else{
+                items = OGItems;
+                if (!input.isEmpty()) {
                     ArrayList<Joke> tempList = new ArrayList<>();
 
-                    for( Joke element : items ) {
+                    for (Joke element : items) {
                         if (element.getSetup().contains(input)) {
                             tempList.add(element);
                         }
