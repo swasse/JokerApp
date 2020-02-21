@@ -1,9 +1,11 @@
 package be.ehb.jokerapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Banaan on 20/01/2038. ;)
  */
-public class Joke {
+public class Joke implements Serializable {
 
     private String setup, punchline;
 

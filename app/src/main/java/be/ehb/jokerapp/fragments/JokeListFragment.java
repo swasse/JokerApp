@@ -54,7 +54,7 @@ public class JokeListFragment extends Fragment {
 
         //verwijzen naar ViewModel, waar staat alle data
         JokeViewModel model = new ViewModelProvider(this).get(JokeViewModel.class);
-        model.getJokes().observe(getViewLifecycleOwner(), new Observer<ArrayList<Joke>>() {
+        model.getJokes().observeForever( new Observer<ArrayList<Joke>>() {
             @Override
             public void onChanged(ArrayList<Joke> jokes) {
                 adapter.addItems(jokes);

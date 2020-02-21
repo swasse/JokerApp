@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/startFragment"
         android:name="be.ehb.jokerapp.fragments.StartFragment"
-        android:label="@string/app_name"
         tools:layout="@layout/fragment_start" >
         <action
             android:id="@+id/start_to_jokelist"
@@ -17,6 +16,17 @@
     <fragment
         android:id="@+id/jokeListFragment"
         android:name="be.ehb.jokerapp.fragments.JokeListFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_joke_list" />
+        tools:layout="@layout/fragment_joke_list" >
+        <action
+            android:id="@+id/jokelist_to_details"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="be.ehb.jokerapp.fragments.DetailFragment"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="passedJoke"
+            app:argType="be.ehb.jokerapp.model.Joke" />
+    </fragment>
 </navigation>
